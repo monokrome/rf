@@ -1,6 +1,7 @@
 #include <dirent.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 
 #define MAX_PATHS 255
@@ -15,11 +16,11 @@ char* get_directory_name(int argc, char *argv[]) {
 }
 
 
-
 int main(int argc, char *argv[]) {
 	short index = 0;
 	paths = (char**) malloc(sizeof(char) * MAX_PATHS);
-	DIR *directory = opendir(get_directory_name(argc, argv));
+	char *directoryName = get_directory_name(argc, argv);
+	DIR *directory = opendir(directoryName);
 	struct dirent *entity;
 
 	if (directory == NULL) {
@@ -33,7 +34,11 @@ int main(int argc, char *argv[]) {
 		++index;
 	}
 
-	index = arc4random_uniform(index);
-	printf("%s\n", paths[index]);
+	srand(time(0));
+	index = rand() % index;
+
+	printf("%s/%s\n", directoryName, paths[index]);
+
+	free(directoryName);
 	return 0;
 }
