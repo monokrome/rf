@@ -39,6 +39,5 @@ int main(int argc, char *argv[]) {
 
 	printf("%s/%s\n", directoryName, paths[index]);
 
-	free(directoryName);
 	return 0;
 }
